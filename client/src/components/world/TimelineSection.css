@@ -1,0 +1,85 @@
+.timeline-section {
+    padding-top: 1rem;
+}
+
+.timeline-list ul {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    margin: 2rem 0;
+}
+
+/* The vertical line of the timeline */
+.timeline-list ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    height: 100%;
+    width: 4px;
+    background: #e9ecef; /* Light grey */
+    border-radius: 2px;
+}
+
+.timeline-item {
+    margin-bottom: 2rem;
+    position: relative;
+    padding-left: 35px; /* Space for the line and dot */
+}
+
+/* The dot on the timeline */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 5px;
+    height: 15px;
+    width: 15px;
+    background: #007bff; /* Blue dot */
+    border-radius: 50%;
+    border: 3px solid #fff;
+}
+
+.timeline-date {
+    font-weight: 500;
+    color: #6c757d; /* Muted grey for date */
+    margin-bottom: 0.25rem;
+}
+
+.timeline-content strong {
+    font-size: 1.1rem;
+    color: #343a40;
+}
+
+.timeline-content p {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.timeline-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.timeline-form h4 {
+    margin-top: 0;
+}
+
+.timeline-form label {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.timeline-form input,
+.timeline-form textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}

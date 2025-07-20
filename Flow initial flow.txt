@@ -1,0 +1,110 @@
+User Flow: How a user will experience and interact with the application.
+Technical Architecture & Data Flow: How the data moves through your system (frontend, backend, database).
+Phased Development Plan: A step-by-step roadmap to build the project from a simple MVP to a full-featured application.
+1. User Flow (The User's Journey)
+This describes the path a user takes through your application.
+Onboarding & Authentication:
+A new user lands on the homepage, which showcases the features of Codex.
+They can Sign Up using an email/password or an OAuth provider (Google, GitHub).
+Existing users can Log In.
+The World Dashboard (Main Hub):
+After logging in, the user sees their "Worlds Dashboard."
+This page displays a list of all the fictional worlds they have created or have been invited to collaborate on.
+They have a prominent button: "Create New World."
+Creating/Entering a World:
+When a user clicks "Create New World," they give it a Title (e.g., "The Ashen Kingdom") and a brief Description.
+Upon creation, they are taken to that specific World's main dashboard.
+This dashboard gives them access to the three core tools: The Wiki, The Map, and The Timeline. It also shows recent activity and a list of collaborators.
+Using The Wiki (The Core Content):
+The user clicks on the "Wiki" tab.
+They see a list of existing articles and a "Create New Article" button.
+They create an article, for example, a Character named "Kaelen." They give it a title and open a rich-text editor.
+Inside the editor, they describe Kaelen. While writing, they mention the city of "Silverwood."
+The Magic Link: They type [[Silverwood]]. Since the "Silverwood" article doesn't exist yet, the text turns into a special link (e.g., red and clickable). Clicking it automatically creates a new, blank article titled "Silverwood," ready to be filled out. If it did exist, it would turn into a blue link pointing to the existing article.
+This interlinking is the heart of the wiki.
+Using The Interactive Map:
+The user navigates to the "Map" tab.
+They are prompted to upload an image of their world map.
+Once uploaded, the map is displayed. The user can now click anywhere on the map to place a Pin.
+When a pin is placed, a modal appears, prompting them to link this pin to a Wiki Article. They start typing "Silverwood," and the existing wiki article appears in a dropdown. They select it.
+Now, a pin exists on the map over the city of Silverwood. When any user hovers over or clicks this pin, a small preview of the "Silverwood" wiki article appears with a link to read the full entry.
+Using The Timeline:
+The user goes to the "Timeline" tab.
+They click "Add Event."
+They create an event titled "The Dragon's Siege." They assign it a fictional date (e.g., "Year 1134 of the Second Era") and a description.
+In the event details, there's an option to "Link Articles." They link the [[Kaelen]] and [[Silverwood]] articles to this event.
+The event now appears on a visual, horizontal timeline. Clicking the event shows its details and links to the associated articles.
+Collaboration Flow:
+The World's owner navigates to the "Collaborators" tab on the World's dashboard.
+They click "Invite User" and enter their collaborator's email address.
+They assign a role: Owner (full control), Editor (can create/edit content), or Viewer (read-only).
+The invited user gets an email notification.
+Real-time in Action: When two editors are in the same wiki article, they can see each other's cursors and typing in real-time. When one editor adds a pin to the map, it instantly appears on the other editor's screen.
+2. Technical Architecture & Data Flow
+This outlines the full-stack structure.
+Frontend (Client-side):
+Framework: React or Vue.js. (React is excellent for its component-based structure).
+Rich Text Editor: Tiptap or Slate.js. These are highly extensible and will allow you to build the custom [[link]] functionality.
+Map Library: Leaflet.js. It's perfect for custom image overlays and placing markers.
+State Management: Redux Toolkit or Zustand. You'll need a robust solution to manage complex state (current world, articles, user info).
+Real-time Communication: Socket.IO Client to listen for and emit events from the server.
+Backend (Server-side):
+Framework: Node.js with Express.js. A classic, powerful choice for building a REST API.
+Database: MongoDB. Its document-based nature (JSON-like) is a perfect fit for this project.
+Worlds collection.
+Users collection.
+Articles collection (each document contains its title, content, and the ID of the world it belongs to).
+MapPins collection.
+TimelineEvents collection.
+Real-time Communication: Socket.IO Server. It will handle broadcasting changes (e.g., "user A is typing in document X," "user B added a pin") to all connected clients in a specific "room" (a "room" would be a World).
+Authentication: Passport.js with a JWT (JSON Web Token) strategy. When a user logs in, the server sends them a JWT. The user includes this token in the header of all subsequent requests to prove their identity.
+Data Flow Example (Adding a Map Pin):
+User Action (Frontend): User clicks on the map in their browser.
+Frontend Logic: Leaflet.js captures the coordinates. React opens a modal. The user selects a wiki article to link.
+API Request: On submit, the frontend sends a POST request to /api/worlds/:worldId/pins with a JSON body containing the pin's coordinates and the linked articleId. The JWT is in the request header.
+Backend Logic (Server):
+The Express server receives the request.
+A middleware verifies the JWT to authenticate the user and check if they have permission to edit this world.
+The server controller saves the new pin data to the MapPins collection in MongoDB.
+After saving, the server uses Socket.IO to emit an event like new-pin-added to the room for :worldId. The event payload includes the new pin's data.
+Real-time Update (All Clients):
+All other collaborators who have that world open receive the new-pin-added event via their WebSocket connection.
+Their frontend (React/Redux) listens for this event, updates the application state, and dynamically renders the new pin on their map without needing a page refresh.
+3. Phased Development Plan (The Build Flow)
+Don't try to build everything at once. Follow these phases.
+Phase 1: The Core Foundation (MVP)
+Goal: A single-user, non-collaborative version.
+Features:
+User authentication (signup, login, logout).
+Ability to create, view, and delete Worlds.
+Basic CRUD (Create, Read, Update, Delete) for Wiki Articles using a simple textarea (no fancy editor yet).
+Ability to list all articles within a world.
+Phase 2: The Core "Magic"
+Goal: Implement the main interactive features.
+Features:
+Integrate a rich-text editor (Tiptap).
+Implement the [[Double Bracket]] linking logic.
+Implement the Map feature: upload a map image and place pins.
+Link map pins to wiki articles.
+Implement the Timeline feature: create events and link articles to them.
+Phase 3: Collaboration & Real-Time
+Goal: Make it a multi-user platform.
+Features:
+Set up Socket.IO on the server and client.
+Implement the user invitation system.
+Broadcast changes in real-time (e.g., a new article created, a new pin added).
+Implement basic real-time co-editing in the wiki (cursor tracking is a great "wow" factor).
+Phase 4: Permissions & Polish
+Goal: Add security and improve the user experience.
+Features:
+Implement the role-based permission system (Owner, Editor, Viewer).
+Build out user dashboards and profiles.
+Add notifications (e.g., "You have been invited to...").
+Refine the UI/UX, add loading states, and handle errors gracefully.
+Phase 5: Advanced Features (Post-Launch)
+Goal: Add features that make Codex truly unique.
+Features:
+Article version history (like Google Docs).
+Relationship graphs (using a library like D3.js or Vis.js to visualize how articles link to each other).
+Full-text search across all articles in a world.
+Templates for different types of articles (Character, Location, etc.).

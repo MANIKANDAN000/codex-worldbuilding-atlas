@@ -1,0 +1,141 @@
+/* client/src/pages/DashboardPage.css */
+
+.dashboard-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.dashboard-title {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.title-gradient {
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dashboard-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-top: 0;
+  margin-bottom: 3rem;
+}
+
+.dashboard-card {
+  background: var(--background-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2.5rem;
+}
+
+.dashboard-card h2 {
+  margin-top: 0;
+  font-size: 1.8rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.create-world-form {
+  display: flex;
+  gap: 1rem;
+}
+
+.create-world-form input {
+  flex-grow: 1;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+  background-color: var(--background-light);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.create-world-form input:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 3px rgba(236, 201, 75, 0.2);
+}
+
+.create-world-form button {
+  background: var(--accent-gold);
+  color: var(--background-dark);
+  border: none;
+  border-radius: 8px;
+  padding: 0 1.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-world-form button:hover {
+  background: var(--accent-gold-hover);
+}
+
+.worlds-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.world-item a {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+  background-color: var(--background-light);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.world-item a:hover {
+  border-color: var(--accent-gold);
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.world-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.world-title {
+  flex-grow: 1;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.arrow-icon {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease;
+}
+
+.world-item a:hover .arrow-icon {
+  color: var(--accent-gold);
+  transform: translateX(5px);
+}
+
+.no-worlds-message {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 2rem;
+  font-style: italic;
+}
+
+.loader {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}

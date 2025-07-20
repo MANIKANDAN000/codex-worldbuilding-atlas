@@ -1,0 +1,56 @@
+/* client/src/styles/index.css */
+
+/* --- THEME DEFINITIONS --- */
+:root {
+  --background-dark: #1A202C;
+  --background-light: #2D3748;
+  --background-glass: rgba(45, 55, 72, 0.6);
+  --text-primary: #EDF2F7;
+  --text-secondary: #A0AEC0;
+  --accent-gold: #ECC94B;
+  --accent-gold-hover: #D69E2E;
+  --accent-teal: #4FD1C5;
+  --border-color: #4A5568;
+  --error-color: #E53E3E;
+  --font-heading: 'Merriweather', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color: var(--text-primary);
+  
+  /* --- UNIQUE BACKGROUND EFFECT --- */
+  background-color: var(--background-dark);
+  background-image:
+    radial-gradient(var(--text-secondary) 0.5px, transparent 0.5px),
+    radial-gradient(var(--text-secondary) 0.5px, var(--background-dark) 0.5px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+/* --- GLOBAL ELEMENT STYLING --- */
+a {
+  color: var(--accent-teal);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-gold);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 2rem 0;
+}

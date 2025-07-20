@@ -1,0 +1,661 @@
+/* client/src/styles/App.css */
+
+:root {
+  --luxury-gold: #ffd700;
+  --luxury-gold-light: #fff4b8;
+  --luxury-gold-dark: #c9a227;
+  --dark-charcoal: #121212;
+  --charcoal-light: #1e1e1e;
+  --platinum: #e6e6e6;
+  --platinum-dark: #c2c2c2;
+  --deep-emerald: #005f60;
+  --deep-emerald-light: #008080;
+  --crimson: #dc143c;
+  --crimson-dark: #a3102d;
+  --glass-effect: rgba(18, 18, 18, 0.85);
+  --glass-border: rgba(255, 215, 0, 0.2);
+  --transition-base: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overscroll-behavior: none;
+}
+
+.App {
+  text-align: center;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background: var(--dark-charcoal);
+  color: var(--platinum);
+  font-family: 'Avenir', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Luxury Background with Parallax Effect */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+  perspective: 1000px;
+}
+
+.background-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(135deg, var(--dark-charcoal) 0%, var(--deep-emerald) 100%);
+  opacity: 0.95;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.background-pattern::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 75% 25%, 
+      transparent 0%, 
+      transparent 65%, 
+      rgba(255, 215, 0, 0.05) 65%, 
+      rgba(255, 215, 0, 0.05) 70%, 
+      transparent 70%, 
+      transparent 100%),
+    radial-gradient(circle at 25% 75%, 
+      transparent 0%, 
+      transparent 65%, 
+      rgba(220, 20, 60, 0.05) 65%, 
+      rgba(220, 20, 60, 0.05) 70%, 
+      transparent 70%, 
+      transparent 100%),
+    linear-gradient(135deg, 
+      rgba(0, 0, 0, 0.2) 0%, 
+      transparent 50%, 
+      rgba(0, 0, 0, 0.2) 100%);
+  animation: rotate 180s linear infinite;
+  z-index: -1;
+}
+
+/* Enhanced Diamond Grid with Depth */
+.diamond-grid {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: 
+    linear-gradient(rgba(255, 215, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 215, 0, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: 
+    gridMove 30s linear infinite,
+    gridPulse 15s ease-in-out infinite alternate;
+  z-index: -1;
+  opacity: 0.4;
+  transform: rotate(45deg);
+  scale: 1.5;
+}
+
+/* Floating Luxury Elements with More Variety */
+.luxury-element {
+  position: absolute;
+  border: 1px solid var(--luxury-gold);
+  opacity: 0.2;
+  animation: floatElement 30s infinite ease-in-out;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.luxury-element:nth-child(1) {
+  width: 180px;
+  height: 180px;
+  top: 15%;
+  left: 5%;
+  border-radius: 50%;
+  border-width: 2px;
+  animation-delay: 0s;
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
+}
+
+.luxury-element:nth-child(2) {
+  width: 120px;
+  height: 120px;
+  top: 75%;
+  left: 85%;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  animation-delay: 7s;
+  border-width: 1.5px;
+  filter: blur(0.5px);
+}
+
+.luxury-element:nth-child(3) {
+  width: 220px;
+  height: 220px;
+  top: 65%;
+  left: 10%;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  animation-delay: 12s;
+  border-width: 1px;
+  opacity: 0.15;
+}
+
+.luxury-element:nth-child(4) {
+  width: 80px;
+  height: 80px;
+  top: 20%;
+  left: 80%;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
+  animation-delay: 18s;
+  border-width: 1.2px;
+  opacity: 0.18;
+}
+
+.luxury-element:nth-child(5) {
+  width: 160px;
+  height: 160px;
+  top: 50%;
+  left: 50%;
+  border-radius: 20px;
+  transform: rotate(20deg);
+  animation-delay: 25s;
+  border-width: 1.3px;
+  opacity: 0.12;
+}
+
+/* Keyframe Animations */
+@keyframes rotate {
+  from { transform: rotate(0deg) translateZ(0); }
+  to { transform: rotate(360deg) translateZ(0); }
+}
+
+@keyframes gridMove {
+  from { background-position: 0 0; }
+  to { background-position: 120px 120px; }
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes floatElement {
+  0%, 100% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+    opacity: 0.2;
+  }
+  25% {
+    transform: translateY(-60px) translateX(30px) rotate(8deg) scale(1.05);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(30px) translateX(-40px) rotate(-8deg) scale(0.95);
+    opacity: 0.15;
+  }
+  75% {
+    transform: translateY(-30px) translateX(40px) rotate(5deg) scale(1.02);
+    opacity: 0.22;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Main Content Styling with Enhanced Glass Morphism */
+main {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 3rem;
+  text-align: left;
+  background: var(--glass-effect);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-radius: 24px;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  position: relative;
+  z-index: 1;
+  transition: var(--transition-base);
+  animation: fadeIn 1s ease-out forwards;
+  overflow: hidden;
+}
+
+main::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, 
+    rgba(255, 215, 0, 0.03) 0%, 
+    transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+main:hover {
+  border-color: rgba(255, 215, 0, 0.35);
+  box-shadow: 
+    0 12px 40px rgba(255, 215, 0, 0.15),
+    inset 0 0 0 1px rgba(255, 215, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+/* Luxury Typography with Improved Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  background: linear-gradient(45deg, var(--luxury-gold), var(--platinum));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 3.5rem;
+  text-shadow: 0 4px 15px rgba(255, 215, 0, 0.25);
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--luxury-gold), 
+    transparent);
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-top: 3rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+h2::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--luxury-gold), var(--deep-emerald));
+  border-radius: 3px;
+}
+
+h3 {
+  font-size: 1.8rem;
+  margin-top: 2rem;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--platinum-dark);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--luxury-gold);
+  text-decoration: none;
+  transition: var(--transition-base);
+  position: relative;
+}
+
+a:hover {
+  color: var(--luxury-gold-light);
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--luxury-gold);
+  transition: var(--transition-base);
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+/* Enhanced Interactive Elements */
+button, .btn {
+  background: linear-gradient(135deg, 
+    var(--luxury-gold) 0%, 
+    var(--luxury-gold-dark) 100%);
+  color: var(--dark-charcoal);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: var(--transition-base);
+  box-shadow: 
+    0 6px 20px rgba(255, 215, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+button::before, .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent);
+  transition: all 0.6s ease;
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 10px 25px rgba(255, 215, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+button:hover::before, .btn:hover::before {
+  left: 100%;
+}
+
+button:active, .btn:active {
+  transform: translateY(-2px);
+}
+
+button.secondary, .btn.secondary {
+  background: transparent;
+  color: var(--luxury-gold);
+  border: 1px solid var(--luxury-gold);
+  box-shadow: none;
+}
+
+button.secondary:hover, .btn.secondary:hover {
+  background: rgba(255, 215, 0, 0.1);
+}
+
+/* Decorative Elements */
+.decorative-line {
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--luxury-gold), 
+    var(--deep-emerald), 
+    transparent);
+  margin: 2rem 0;
+  border: none;
+  opacity: 0.5;
+}
+
+.luxury-divider {
+  display: flex;
+  align-items: center;
+  margin: 2.5rem 0;
+}
+
+.luxury-divider::before, .luxury-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--luxury-gold), 
+    transparent);
+}
+
+.luxury-divider span {
+  padding: 0 1.5rem;
+  color: var(--luxury-gold);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--luxury-gold), var(--luxury-gold-dark));
+  border-radius: 5px;
+  border: 2px solid var(--dark-charcoal);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--luxury-gold);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  main {
+    max-width: 90%;
+    padding: 2rem;
+    margin: 2rem auto;
+  }
+  
+  h1 {
+    font-size: 2.8rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    max-width: 95%;
+    padding: 1.5rem;
+    margin: 1.5rem auto;
+  }
+  
+  h1 {
+    font-size: 2.2rem;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+  }
+  
+  button, .btn {
+    padding: 12px 24px;
+  }
+  
+  .diamond-grid {
+    background-size: 30px 30px;
+  }
+}
+
+/* Loading Animation */
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.loading-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--luxury-gold);
+  animation: pulse 1.5s infinite ease-in-out;
+  margin: 0 4px;
+}
+
+.loading-indicator:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-indicator:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Notification/Toast Styles */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--glass-effect);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--luxury-gold);
+  color: var(--platinum);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: toastIn 0.5s forwards, toastOut 0.5s 2.5s forwards;
+}
+
+@keyframes toastIn {
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes toastOut {
+  to { transform: translateY(-20px); opacity: 0; }
+}
+
+/* Form Elements */
+input, textarea, select {
+  background: rgba(18, 18, 18, 0.7);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: var(--platinum);
+  font-size: 1rem;
+  transition: var(--transition-base);
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--luxury-gold);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--luxury-gold);
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+/* Card Component */
+.card {
+  background: var(--glass-effect);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-base);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 215, 0, 0.35);
+  box-shadow: 0 12px 40px rgba(255, 215, 0, 0.15);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--luxury-gold);
+}
+
+/* Tooltip */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: var(--dark-charcoal);
+  color: var(--platinum);
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  border: 1px solid var(--luxury-gold);
+  font-size: 0.9rem;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Pulse Animation for Important Elements */
+@keyframes pulse-gold {
+  0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+}
+
+.pulse {
+  animation: pulse-gold 2s infinite;
+}
